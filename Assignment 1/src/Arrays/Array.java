@@ -25,6 +25,8 @@ public class Array {
 		for(int i =0; i<anArray.length; i++) {
 			System.out.println(anArray[i]);
 		}
+		
+		System.out.println("done");
 	}
 	
 
