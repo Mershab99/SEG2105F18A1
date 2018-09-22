@@ -20,7 +20,7 @@ public class PointCPTest
 {
 	private static Random r = new Random();
 	
-	private static int TEST_CASES = 10;
+	private static int TEST_CASES = 1000;
 	
   //Class methods *****************************************************
 
@@ -44,16 +44,19 @@ public class PointCPTest
 
     System.out.println("Cartesian-Polar Coordinates Conversion Test Program");
     
-    int arguementLine = 0;
+    long startTime = System.nanoTime();
     
-    for(int i = 0;i<TEST_CASES;i++) {
-    	args[arguementLine++] = Double.toString(r.nextDouble());
-    	args[arguementLine++] = Double.toString(r.nextDouble());
-    }
+    System.out.println("Generating Test Cases...");
     
-    int currentLine = 0;
+    String[][] testCases = generateTestCases();
+    
+    System.out.println("Done Generating Test Cases");
+    
+    long testCaseTime = System.nanoTime();
     
     // START TIMER
+    
+    
     
     for(int i = 0;i<TEST_CASES;i++) {
     	
@@ -63,9 +66,9 @@ public class PointCPTest
         // If he did not, prompt the user for them.
         try
         {
-          point = new PointCP('C', 
-            Double.valueOf(args[currentLine++]).doubleValue(), 
-            Double.valueOf(args[currentLine++]).doubleValue());
+        	point = new PointCP('P', 
+        			Double.valueOf(testCases[i][0]).doubleValue(), 
+        	        Double.valueOf(testCases[i][1]).doubleValue());
         }
         catch(Exception e)
         {
@@ -87,12 +90,22 @@ public class PointCPTest
         
         System.out.println("\nYou entered:\n" + point);
         point.convertStorageToCartesian();
-        System.out.println("\nAfter asking to store as Cartesian:\n" + point);
-        System.out.println("Finished " + i + " out of " + TEST_CASES + " test cases.");
+        System.out.println("After asking to store as Cartesian:\n" + point);
+        System.out.println("Finished " + (i+1) + " out of " + TEST_CASES + " test cases.");
     }
     
-    System.out.println("Test Finished!");
+    long endTime = System.nanoTime();
     
+    System.out.println("Test Finished!\n");
+    
+    System.out.println("Results:\n");
+    
+    System.out.println("Average time to generate test cases: " + ((testCaseTime - startTime)/TEST_CASES));
+    System.out.println("Average time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)/TEST_CASES) + "\n");
+    
+    System.out.println("Time to generate test cases: " + ((testCaseTime - startTime)));
+    System.out.println("Time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)));
+    System.out.println("Total Time: " + ((endTime - startTime)));
     
   }
 
@@ -187,7 +200,19 @@ public class PointCPTest
     //Return a new PointCP object
     return (new PointCP(coordType, a, b));
   }
-  
+ 
+  private static String[][] generateTestCases(){
+	    
+	    String[][] t = new String[TEST_CASES][2];
+	    
+	    for(int i = 0;i<TEST_CASES;i++) {
+	    	
+	    	System.out.println("Generating test case " + i );
+	    	t[i][0] = Double.toString(r.nextDouble()*10);
+	    	t[i][1] = Double.toString(r.nextDouble()*10);	
+	    }
+	    return t;
+  }
 }
 
 

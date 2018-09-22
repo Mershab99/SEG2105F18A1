@@ -5,6 +5,8 @@ package design3;
 
 import java.io.*;
 
+import java.util.Random;
+
 /**
  * This class prompts the user for a set of coordinates, and then 
  * converts them from polar to cartesian or vice-versa.
@@ -16,6 +18,10 @@ import java.io.*;
  */
 public class PointCPTest
 {
+	private static Random r = new Random();
+	
+	private static int TEST_CASES = 1000;
+	
   //Class methods *****************************************************
 
   /**
@@ -34,41 +40,73 @@ public class PointCPTest
    */
   public static void main(String[] args)
   {
-    PointCP point;
+    
 
-    System.out.println("Cartesian-Polar Coordinates Conversion Program");
+    System.out.println("Cartesian-Polar Coordinates Conversion Test Program");
+    
+    long startTime = System.nanoTime();
+    
+    System.out.println("Generating Test Cases...");
+    
+    String[][] testCases = generateTestCases();
+    
+    System.out.println("Done Generating Test Cases");
+    
+    long testCaseTime = System.nanoTime();
+    
+    // START TIMER
+    
+    
+    
+    for(int i = 0;i<TEST_CASES;i++) {
+    	
+    	PointCP point;
+        // Check if the user input coordinates from the command line
+        // If he did, create the PointCP object from these arguments.
+        // If he did not, prompt the user for them.
+        try
+        {
+        	point = new PointCP('C', 
+        			Double.valueOf(testCases[i][0]).doubleValue(), 
+        	        Double.valueOf(testCases[i][1]).doubleValue());
+        }
+        catch(Exception e)
+        {
+          // If we arrive here, it is because either there were no
+          // command line arguments, or they were invalid
+          if(args.length != 0)
+            System.out.println("Invalid arguments on command line");
 
-    // Check if the user input coordinates from the command line
-    // If he did, create the PointCP object from these arguments.
-    // If he did not, prompt the user for them.
-    try
-    {
-      point = new PointCP(args[0].toUpperCase().charAt(0), 
-        Double.valueOf(args[1]).doubleValue(), 
-        Double.valueOf(args[2]).doubleValue());
+          try
+          {
+            point = getInput();
+          }
+          catch(IOException ex)
+          {
+            System.out.println("Error getting input. Ending program.");
+            return;
+          }
+        }
+        
+        System.out.println("\nYou entered:\n" + point);
+        point.convertStorageToPolar();
+        System.out.println("\nAfter asking to store as Polar:\n" + point);
+        System.out.println("Finished " + (i+1) + " out of " + TEST_CASES + " test cases.");
     }
-    catch(Exception e)
-    {
-      // If we arrive here, it is because either there were no
-      // command line arguments, or they were invalid
-      if(args.length != 0)
-        System.out.println("Invalid arguments on command line");
-
-      try
-      {
-        point = getInput();
-      }
-      catch(IOException ex)
-      {
-        System.out.println("Error getting input. Ending program.");
-        return;
-      }
-    }
-    System.out.println("\nYou entered:\n" + point);
-    point.convertStorageToCartesian();
-    System.out.println("\nAfter asking to store as Cartesian:\n" + point);
-    point.convertStorageToPolar();
-    System.out.println("\nAfter asking to store as Polar:\n" + point);
+    
+    long endTime = System.nanoTime();
+    
+    System.out.println("Test Finished!\n");
+    
+    System.out.println("Results:\n");
+    
+    System.out.println("Average time to generate test cases: " + ((testCaseTime - startTime)/TEST_CASES));
+    System.out.println("Average time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)/TEST_CASES) + "\n");
+    
+    System.out.println("Time to generate test cases: " + ((testCaseTime - startTime)));
+    System.out.println("Time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)));
+    System.out.println("Total Time: " + ((endTime - startTime)));
+    
   }
 
   /**
@@ -82,6 +120,7 @@ public class PointCPTest
    *         the user.
    */
   private static PointCP getInput() throws IOException
+
   {
     byte[] buffer = new byte[1024];  //Buffer to hold byte input
     boolean isOK = false;  // Flag set if input correct
@@ -161,4 +200,20 @@ public class PointCPTest
     //Return a new PointCP object
     return (new PointCP(coordType, a, b));
   }
+ 
+  private static String[][] generateTestCases(){
+	    
+	    String[][] t = new String[TEST_CASES][2];
+	    
+	    for(int i = 0;i<TEST_CASES;i++) {
+	    	
+	    	System.out.println("Generating test case " + i );
+	    	t[i][0] = Double.toString(r.nextDouble()*10);
+	    	t[i][1] = Double.toString(r.nextDouble()*10);	
+	    }
+	    return t;
+  }
 }
+
+
+
