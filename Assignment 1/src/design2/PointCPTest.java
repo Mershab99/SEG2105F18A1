@@ -5,6 +5,8 @@ package design2;
 
 import java.io.*;
 
+import java.util.Random;
+
 /**
  * This class prompts the user for a set of coordinates, and then 
  * converts them from polar to cartesian or vice-versa.
@@ -16,6 +18,10 @@ import java.io.*;
  */
 public class PointCPTest
 {
+	private static Random r = new Random();
+	
+	private static int TEST_CASES = 10;
+	
   //Class methods *****************************************************
 
   /**
@@ -34,41 +40,60 @@ public class PointCPTest
    */
   public static void main(String[] args)
   {
-    PointCP point;
+    
 
-    System.out.println("Cartesian-Polar Coordinates Conversion Program");
-
-    // Check if the user input coordinates from the command line
-    // If he did, create the PointCP object from these arguments.
-    // If he did not, prompt the user for them.
-    try
-    {
-      point = new PointCP(args[0].toUpperCase().charAt(0), 
-        Double.valueOf(args[1]).doubleValue(), 
-        Double.valueOf(args[2]).doubleValue());
+    System.out.println("Cartesian-Polar Coordinates Conversion Test Program");
+    
+    int arguementLine = 0;
+    
+    for(int i = 0;i<TEST_CASES;i++) {
+    	args[arguementLine++] = Double.toString(r.nextDouble());
+    	args[arguementLine++] = Double.toString(r.nextDouble());
     }
-    catch(Exception e)
-    {
-      // If we arrive here, it is because either there were no
-      // command line arguments, or they were invalid
-      if(args.length != 0)
-        System.out.println("Invalid arguments on command line");
+    
+    int currentLine = 0;
+    
+    // START TIMER
+    
+    for(int i = 0;i<TEST_CASES;i++) {
+    	
+    	PointCP point;
+        // Check if the user input coordinates from the command line
+        // If he did, create the PointCP object from these arguments.
+        // If he did not, prompt the user for them.
+        try
+        {
+          point = new PointCP('C', 
+            Double.valueOf(args[currentLine++]).doubleValue(), 
+            Double.valueOf(args[currentLine++]).doubleValue());
+        }
+        catch(Exception e)
+        {
+          // If we arrive here, it is because either there were no
+          // command line arguments, or they were invalid
+          if(args.length != 0)
+            System.out.println("Invalid arguments on command line");
 
-      try
-      {
-        point = getInput();
-      }
-      catch(IOException ex)
-      {
-        System.out.println("Error getting input. Ending program.");
-        return;
-      }
+          try
+          {
+            point = getInput();
+          }
+          catch(IOException ex)
+          {
+            System.out.println("Error getting input. Ending program.");
+            return;
+          }
+        }
+        
+        System.out.println("\nYou entered:\n" + point);
+        point.convertStorageToCartesian();
+        System.out.println("\nAfter asking to store as Cartesian:\n" + point);
+        System.out.println("Finished " + i + " out of " + TEST_CASES + " test cases.");
     }
-    System.out.println("\nYou entered:\n" + point);
-    point.convertStorageToCartesian();
-    System.out.println("\nAfter asking to store as Cartesian:\n" + point);
-    point.convertStorageToPolar();
-    System.out.println("\nAfter asking to store as Polar:\n" + point);
+    
+    System.out.println("Test Finished!");
+    
+    
   }
 
   /**
@@ -82,6 +107,7 @@ public class PointCPTest
    *         the user.
    */
   private static PointCP getInput() throws IOException
+
   {
     byte[] buffer = new byte[1024];  //Buffer to hold byte input
     boolean isOK = false;  // Flag set if input correct
@@ -161,4 +187,8 @@ public class PointCPTest
     //Return a new PointCP object
     return (new PointCP(coordType, a, b));
   }
+  
 }
+
+
+
