@@ -10,8 +10,6 @@ public class vect {
 	
 	public static void main(String args[]) {
 		
-		
-		
 		Vector<Integer> v = new Vector<Integer>(); 
 		Random randInt = new Random();
 		
@@ -24,7 +22,7 @@ public class vect {
 		long endTime = System.nanoTime();
 		System.out.println("done");
 		
-		System.out.println("Ran for: " + (endTime - startTime));
+		System.out.println("Vector ran for: " + (endTime - startTime) + " nanoseconds");
 		
 		
 	}

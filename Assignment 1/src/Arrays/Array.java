@@ -4,16 +4,6 @@ import java.util.Random;
 
 public class Array {
 	
-	private static int anArray[];
-	
-	public static int[] array() {
-		anArray = new int[2500000];
-		for(int i=0; i < anArray.length; i++) {
-			anArray[i] = randFill();
-		}
-		return anArray;	
-	}
-	
 	public static int randFill() {
 		Random randInt = new Random();
 		int rand = randInt.nextInt(10);
@@ -21,12 +11,18 @@ public class Array {
 	}
 	
 	public static void main(String args[]) {
-		array();
-		for(int i =0; i<anArray.length; i++) {
-			System.out.println(anArray[i]);
+	
+		long startTime = System.nanoTime();
+		int[] anArray = new int[100000000];
+		for(int i=0; i < anArray.length; i++) {
+			anArray[i] = randFill();
 		}
+		long endTime = System.nanoTime();	
 		
 		System.out.println("done");
+		
+		System.out.println("The Array ran for: " + (endTime - startTime) + " nanoseconds");
+		
 	}
 	
 
