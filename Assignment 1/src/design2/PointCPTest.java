@@ -5,6 +5,7 @@ package design2;
 
 import java.io.*;
 
+// Import the Random class.
 import java.util.Random;
 
 /**
@@ -18,9 +19,10 @@ import java.util.Random;
  */
 public class PointCPTest
 {
-	private static Random r = new Random();
 	
-	private static int TEST_CASES = 1000;
+	
+	//Constant to store the test cases.
+	private static int NUMBER_OF_TESTS = 1000;
 	
   //Class methods *****************************************************
 
@@ -40,72 +42,66 @@ public class PointCPTest
    */
   public static void main(String[] args)
   {
+	System.out.println("Cartesian-Polar Coordinates Conversion Test Program");
+   
+    Random r = new Random();
     
+	PointCP point;
+    // Check if the user input coordinates from the command line
+    // If he did, create the PointCP object from these arguments.
+    // If he did not, prompt the user for them.
+    try
+    {
+    	point = new PointCP('P', 
+    			r.nextDouble(), 
+    	        r.nextDouble());
+    }
+    catch(Exception e)
+    {
+      // If we arrive here, it is because either there were no
+      // command line arguments, or they were invalid
+      if(args.length != 0)
+        System.out.println("Invalid arguments on command line");
 
-    System.out.println("Cartesian-Polar Coordinates Conversion Test Program");
+      try
+      {
+        point = getInput();
+      }
+      catch(IOException ex)
+      {
+        System.out.println("Error getting input. Ending program.");
+        return;
+      }
+    }
     
     long startTime = System.nanoTime();
     
-    System.out.println("Generating Test Cases...");
-    
-    String[][] testCases = generateTestCases();
-    
-    System.out.println("Done Generating Test Cases");
-    
-    long testCaseTime = System.nanoTime();
-    
-    // START TIMER
-    
-    
-    
-    for(int i = 0;i<TEST_CASES;i++) {
-    	
-    	PointCP point;
-        // Check if the user input coordinates from the command line
-        // If he did, create the PointCP object from these arguments.
-        // If he did not, prompt the user for them.
-        try
-        {
-        	point = new PointCP('P', 
-        			Double.valueOf(testCases[i][0]).doubleValue(), 
-        	        Double.valueOf(testCases[i][1]).doubleValue());
-        }
-        catch(Exception e)
-        {
-          // If we arrive here, it is because either there were no
-          // command line arguments, or they were invalid
-          if(args.length != 0)
-            System.out.println("Invalid arguments on command line");
-
-          try
-          {
-            point = getInput();
-          }
-          catch(IOException ex)
-          {
-            System.out.println("Error getting input. Ending program.");
-            return;
-          }
-        }
-        
-        System.out.println("\nYou entered:\n" + point);
-        point.convertStorageToCartesian();
-        System.out.println("After asking to store as Cartesian:\n" + point);
-        System.out.println("Finished " + (i+1) + " out of " + TEST_CASES + " test cases.");
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.getX();
     }
+    long getXTime = System.nanoTime();
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.getY();
+    }
+    long getYTime = System.nanoTime();
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.getRho();
+    }
+    long getRhoTime = System.nanoTime();
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.getTheta();
+    }
+    long getThetaTime = System.nanoTime();
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.convertStorageToPolar();
+    }
+    long getPolarTime = System.nanoTime();
+    for(int i = 0;i<NUMBER_OF_TESTS;i++) {
+    	point.convertStorageToCartesian();
+    }
+    long getCartesianTime = System.nanoTime();
     
-    long endTime = System.nanoTime();
     
-    System.out.println("Test Finished!\n");
-    
-    System.out.println("Results:\n");
-    
-    System.out.println("Average time to generate test cases: " + ((testCaseTime - startTime)/TEST_CASES));
-    System.out.println("Average time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)/TEST_CASES) + "\n");
-    
-    System.out.println("Time to generate test cases: " + ((testCaseTime - startTime)));
-    System.out.println("Time to store and convert polar coordinate to cartesian: " + ((endTime-testCaseTime)));
-    System.out.println("Total Time: " + ((endTime - startTime)));
     
   }
 
@@ -199,19 +195,6 @@ public class PointCPTest
     }
     //Return a new PointCP object
     return (new PointCP(coordType, a, b));
-  }
- 
-  private static String[][] generateTestCases(){
-	    
-	    String[][] t = new String[TEST_CASES][2];
-	    
-	    for(int i = 0;i<TEST_CASES;i++) {
-	    	
-	    	System.out.println("Generating test case " + i );
-	    	t[i][0] = Double.toString(r.nextDouble()*10);
-	    	t[i][1] = Double.toString(r.nextDouble()*10);	
-	    }
-	    return t;
   }
 }
 
