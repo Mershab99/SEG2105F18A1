@@ -3,9 +3,9 @@ import java.util.Random;
 
 
 public class Array {
-	
+	public static Random randInt = new Random();
 	public static int randFill() {
-		Random randInt = new Random();
+		
 		int rand = randInt.nextInt(10);
 		return rand;
 	}
@@ -20,8 +20,8 @@ public class Array {
 		for(int i=0; i < anArray.length; i++) {
 			anArray[i] = randFill();
 			System.out.println(anArray[i]);
-			sum += anArray[i];
-			System.out.println(sum);
+			//sum += anArray[i];
+			//System.out.println(sum);
 		}
 		long endTime = System.nanoTime();	
 		
