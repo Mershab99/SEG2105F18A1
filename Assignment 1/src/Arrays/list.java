@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class list {
 	
 	public static int sumIt = 0;
-	public static int TEST_CASES  = 50000000;
+	public static int TEST_CASES  = 236560000;
 	
 	public static void main(String args[]) {
 			
@@ -22,9 +22,9 @@ public class list {
 		}	
 		
 		long endTime = System.nanoTime();
-		System.out.println("done");
 		
-		long sumTime = System.nanoTime();
+		
+		/*long sumTime = System.nanoTime();
 		
 		Iterator<Integer> iter = arrli.iterator();
 		
@@ -33,10 +33,11 @@ public class list {
 		}
 		
 		long endSumTime = System.nanoTime();
+		*/
 		
-		
+		System.out.println("done");
 		System.out.println("The ArrayList ran for: " + (endTime - startTime) + " nanoseconds");
-		System.out.println("The ArrayList's iterator ran for: " + (endSumTime - sumTime) + " nanoseconds");
+		//System.out.println("The ArrayList's iterator ran for: " + (endSumTime - sumTime) + " nanoseconds");
 	}
 }
 

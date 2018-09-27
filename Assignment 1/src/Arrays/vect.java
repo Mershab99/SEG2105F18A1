@@ -8,7 +8,7 @@ public class vect {
 	
 	public static int sumIt = 0;
 	
-	public static int TEST_CASES = 30000000;
+	public static int TEST_CASES = 90000000;
 	
 	public static void main(String args[]) {
 		
@@ -22,7 +22,6 @@ public class vect {
 		}
 		
 		long endTime = System.nanoTime();
-		System.out.println("done");
 		
 		long sumTime = System.nanoTime();
 		
@@ -34,6 +33,7 @@ public class vect {
 		
 		long endSumTime = System.nanoTime();
 		
+		System.out.println("done");
 		System.out.println("Vector ran for: " + (endTime - startTime) + " nanoseconds");
 		System.out.println("Vector's iterator ran for: " + (endSumTime - sumTime) + " nanoseconds");
 		

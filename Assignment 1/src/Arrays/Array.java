@@ -10,29 +10,30 @@ public class Array {
 		return rand;
 	}
 	
+	public static int sumArr = 0;
+	
 	public static void main(String args[]) {
 	
+		int[] anArray = new int[];
 		long startTime = System.nanoTime();
-		int[] anArray = new int[10];
-		
-		//int sum = 0;
 		
 		for(int i=0; i < anArray.length; i++) {
 			anArray[i] = randFill();
-<<<<<<< HEAD
-			//sum += anArray[i];
-=======
-			System.out.println(anArray[i]);
-			//sum += anArray[i];
-			//System.out.println(sum);
->>>>>>> 632785cfa5fe53616d19aedcbb413cf3cbaa48ca
 		}
 		long endTime = System.nanoTime();	
 		
-		System.out.println("done");
-		//System.out.println("The sum of the array is: " + sum);
+		long sumTime = System.nanoTime();
 		
+		for(int i= 0; i < anArray.length; i++) {
+			sumArr += anArray[i];
+		}
+		
+		long sumEndTime = System.nanoTime();
+		
+		
+		System.out.println("done");
 		System.out.println("The Array ran for: " + (endTime - startTime) + " nanoseconds");
+		System.out.println("The Array's sum ran for: " + (sumEndTime - sumTime) + " nanoseconds");
 		
 	}
 	
