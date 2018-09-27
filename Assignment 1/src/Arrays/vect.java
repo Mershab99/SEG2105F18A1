@@ -1,12 +1,14 @@
 package Arrays;
 
 import java.util.Vector;
+import java.util.Iterator;
 import java.util.Random;
 
 public class vect {
 	
+	public static int sumIt = 0;
 	
-	public static int TEST_CASES = 50000000;
+	public static int TEST_CASES = 30000000;
 	
 	public static void main(String args[]) {
 		
@@ -22,7 +24,18 @@ public class vect {
 		long endTime = System.nanoTime();
 		System.out.println("done");
 		
+		long sumTime = System.nanoTime();
+		
+		Iterator<Integer> iter = v.iterator();
+		
+		while(iter.hasNext()) {
+			sumIt += iter.next();
+		}
+		
+		long endSumTime = System.nanoTime();
+		
 		System.out.println("Vector ran for: " + (endTime - startTime) + " nanoseconds");
+		System.out.println("Vector's iterator ran for: " + (endSumTime - sumTime) + " nanoseconds");
 		
 		
 	}
