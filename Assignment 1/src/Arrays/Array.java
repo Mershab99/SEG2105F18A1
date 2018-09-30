@@ -14,7 +14,7 @@ public class Array {
 	
 	public static void main(String args[]) {
 	
-		int[] anArray = new int[];
+		int[] anArray = new int[236000000];
 		long startTime = System.nanoTime();
 		
 		for(int i=0; i < anArray.length; i++) {

@@ -8,7 +8,7 @@ public class vect {
 	
 	public static int sumIt = 0;
 	
-	public static int TEST_CASES = 90000000;
+	public static int TEST_CASES = 236000000;
 	
 	public static void main(String args[]) {
 		
